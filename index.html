@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Unscramble Guess the Word Game</title>
+</head>
+<body>
+  <h1>Unscramble Guess the Word Game</h1>
+  <p>Instructions: You will be given a scrambled word. Unscramble the word to guess the correct answer.</p>
+  <p>Scrambled Word: <span id="scrambled_word"></span></p>
+  <input type="text" id="guess">
+  <button onclick="checkAnswer()">Guess</button>
+  <p id="result"></p>
+
+  <script>
+    var words = [
+      "apple",
+      "banana",
+      "cat",
+      "dog",
+      "elephant",
+      "fish",
+      "grape",
+      "horse",
+      "ice cream",
+      "juice",
+      "kiwi",
+      "lemon",
+      "mango",
+      "nut",
+      "orange",
+      "peach",
+      "pear",
+      "pineapple",
+      "queen",
+      "rabbit",
+      "strawberry",
+      "tiger",
+      "umbrella",
+      "violin",
+      "watermelon",
+      "x-ray",
+      "yacht",
+      "zebra"
+    ];
+
+    function scrambleWord(word) {
+      var shuffledWord = word.split('').sort(function() {
+        return 0.5 - Math.random();
+      }).join('');
+      return shuffledWord;
+    }
+
+    function initializeGame() {
+      var randomWord = words[Math.floor(Math.random() * words.length)];
+      var scrambled = scrambleWord(randomWord);
+
+      document.getElementById("scrambled_word").textContent = scrambled;
+      document.getElementById("result").textContent = "";
+      document.getElementById("guess").value = "";
+      return randomWord;
+    }
+
+    var currentWord = initializeGame();
+
+    function checkAnswer() {
+      var guess = document.getElementById("guess").value.toLowerCase();
+
+      if (guess === currentWord) {
+        document.getElementById("result").textContent = "Correct!";
+        currentWord = initializeGame(); // Start a new round
+      } else {
+        document.getElementById("result").textContent = "Incorrect. Try again.";
+      }
+    }
+  </script>
+</body>
+</html>
